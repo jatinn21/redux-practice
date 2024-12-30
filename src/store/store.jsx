@@ -50,21 +50,22 @@ store.dispatch({
 });
 console.log("Added two Tasks", store.getState());
 
-store.dispatch({
-  type: actionTypes.REMOVE_TASK,
-  payload: 1,
-});
+// store.dispatch({
+//   type: actionTypes.REMOVE_TASK,
+//   payload: 1,
+// });
 console.log("Updated Store, Deleted first element", store.getState());
 
 // Step 5 : Crete Action Creators
-const addTask_ActionCreator = (task) => {
+export const addTask_ActionCreator = (task) => {
+  console.log("Task-------", task);
   return {
     type: actionTypes.ADD_TASK,
     payload: task,
   };
 };
 
-const removeTask_ActionCreator = (taskIndex) => {
+export const removeTask_ActionCreator = (taskIndex) => {
   return {
     type: actionTypes.REMOVE_TASK,
     payload: taskIndex,
@@ -75,7 +76,7 @@ const removeTask_ActionCreator = (taskIndex) => {
 store.dispatch(addTask_ActionCreator("Revision of TanStack Query"));
 console.log("Updated Store using Add Action Creators", store.getState());
 
-store.dispatch(removeTask_ActionCreator(2));
+// store.dispatch(removeTask_ActionCreator(2));
 console.log("Updated Store using Remove Action Creators", store.getState());
 
 export default store;
@@ -133,6 +134,9 @@ It does not take any arguments.
 Useful for accessing the current state after it gas been updated or to monitor changes.
 
 
+
+
+
 Action Creators
 Action creators are functions that create actions.
 instead of writing  { type : "ADD_TASK", payload: "Learn Redux" }  every time, we can create a function that returns this object.
@@ -154,6 +158,23 @@ const removeTask_ActionCreator = (taskIndex) => {
 
 
 
+
+Connect React with Redux
 To connect react with redux, we need to use react-redux library. Then Wrap the App component with Provider component and pass the store as a prop to Provider component.
+
+
+
+
+Access Redux Store in React using useSelector
+The useSelector hook is used to access the Redux store in a React component.
+We define a selector function that takes the entire Redux store state as an argument and returns the part of the state that we are interested in.
+
+Syntax:
+const state = useSelector((state) => state.stateProperty);
+
+Example:
+const allTasks = useSelector((state) => state.allTask);
+
+
 
 */
