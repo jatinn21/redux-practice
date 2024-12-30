@@ -19,11 +19,9 @@ const taskReducers = (state = initialState, action) => {
       };
 
     case actionTypes.REMOVE_TASK: {
-      console.log(action.payload, "action.payload");
       const updatedTask = state.allTask.filter((_, index) => {
         return index + 1 !== action.payload;
       });
-      console.log(updatedTask, "updatedTask");
       return {
         ...state,
         allTask: updatedTask,
@@ -39,7 +37,7 @@ const taskReducers = (state = initialState, action) => {
 const store = createStore(taskReducers);
 
 // Step 3 : Console the store and current state using getState() method
-console.log(store, "store", store.getState(), "Initial Store");
+console.log(store.getState(), "Initial Store");
 
 // Step 4 : Dispatch an Action and console the current store
 store.dispatch({
@@ -50,13 +48,35 @@ store.dispatch({
   type: actionTypes.ADD_TASK,
   payload: "Revise TanStack Query",
 });
-console.log(store, "store", store.getState(), "Added two Tasks");
+console.log("Added two Tasks", store.getState());
 
 store.dispatch({
   type: actionTypes.REMOVE_TASK,
   payload: 1,
 });
-console.log(store, "store", store.getState(), "Deleted the task with id 1");
+console.log("Updated Store, Deleted first element", store.getState());
+
+// Step 5 : Crete Action Creators
+const addTask_ActionCreator = (task) => {
+  return {
+    type: actionTypes.ADD_TASK,
+    payload: task,
+  };
+};
+
+const removeTask_ActionCreator = (taskIndex) => {
+  return {
+    type: actionTypes.REMOVE_TASK,
+    payload: taskIndex,
+  };
+};
+
+// Step 6 : Dispatch an Action using Action Creators
+store.dispatch(addTask_ActionCreator("Revision of TanStack Query"));
+console.log("Updated Store using Add Action Creators", store.getState());
+
+store.dispatch(removeTask_ActionCreator(2));
+console.log("Updated Store using Remove Action Creators", store.getState());
 
 export default store;
 
@@ -111,5 +131,25 @@ store.dispatch({ type: "ADD_TASK", payload: "Learn Redux" });
 The getState method returns the current state of the Redux store.
 It does not take any arguments.
 Useful for accessing the current state after it gas been updated or to monitor changes.
+
+
+Action Creators
+Action creators are functions that create actions.
+instead of writing  { type : "ADD_TASK", payload: "Learn Redux" }  every time, we can create a function that returns this object.
+
+Example:
+const addTask_ActionCreator = (task) => {
+  return {
+    type: actionTypes.ADD_TASK,
+    payload: task,
+  };
+};
+
+const removeTask_ActionCreator = (taskIndex) => {
+  return {
+    type: actionTypes.REMOVE_TASK,
+    payload: taskIndex,
+  };
+};
 
 */
