@@ -152,4 +152,8 @@ const removeTask_ActionCreator = (taskIndex) => {
   };
 };
 
+
+
+To connect react with redux, we need to use react-redux library. Then Wrap the App component with Provider component and pass the store as a prop to Provider component.
+
 */
